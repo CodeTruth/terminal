@@ -611,6 +611,11 @@ namespace winrt::TerminalApp::implementation
             hr = E_INVALIDARG;
             _settingsLoadExceptionText = _GetErrorText(ex.Error());
         }
+        catch (const std::runtime_error& ex)
+        {
+            hr = E_FAIL;
+            _settingsLoadExceptionText = winrt::to_hstring(ex.what());
+        }
         catch (...)
         {
             hr = wil::ResultFromCaughtException();
